@@ -1,0 +1,658 @@
+
+---------------------------------------matrix multiplication----------------------------------------------
+#include <stdio.h>
+int main()
+{
+int a[25][25],b[25][25],c[25][25],i,j,k,r,s;
+int m,n;
+printf("Enter the rows and columns of first matrix\n");
+scanf("%d%d",&m,&n);
+printf("Enter the rows and columns of  second matrix\n");
+scanf("%d%d",&r,&s);
+if(n!=r)
+{
+    printf("\n The matrix cannot multiplied");
+}
+else
+{
+  printf("\n Enter the elements of first matrix \n ");
+  for(i= 0;i<m;i++)
+{
+  for(j=0;j<n;j++)
+{
+    scanf("%d",&a[i][j]);
+}}
+printf("\n Enter the elements of second matrix \n");
+for(i=0;i<r;i++)
+{
+for(j=0;j<s;j++)
+{
+    scanf("%d",&b[i][j]);
+}}
+
+for(i=0;i<m;i++)
+{
+for(j=0;j<n;j++)
+{
+c[i][j]=0;
+for(k=0;k<n;k++)
+{
+c[i][j]+=a[i][k]*b[k][j];
+}
+}
+}
+printf("\n Multiplication of two matrix is \n");
+for(i=0;i<m;i++)
+{
+for(j=0;j<s;j++)
+{
+printf("%d ",c[i][j]);
+}
+    printf("\n");
+}
+}
+return 0;
+}
+
+-------------------------------------------------bisection method---------------------------------------
+#include<stdio.h>
+#include<math.h>
+float fun(float x)
+{
+    return (x*x*x-4*x-9);
+}
+void bisection(float *x, float a, float b, int *itr)
+{
+    *x=(a+b)/2;
+    ++(*itr);
+    printf("Iteration no. %3d X= %7.5f\n", *itr, *x);
+}
+
+
+int main()
+{
+int itr=0,maxmitr;
+float x,a,b,allerr,x1;
+printf("\nEnter the Values of a and b allowed error and maximum iterations:\n");
+scanf("%f%f%f%d",&a,&b,&allerr,&maxmitr);
+bisection(&x,a,b,&itr);
+do{
+    if(fun(a)*fun(x)<0)
+        b=x;
+    else
+        a=x;
+    bisection(&x1,a,b,&itr);
+    if(fabs(x1-x)<allerr)
+    {
+        printf("After %d iterations, root=%6.4f\n", itr, x1);
+        return 0;
+    }
+    x=x1;
+}
+while(itr<maxmitr);
+printf("The solutions does not converge or iterations are not sufficient");
+return 1;
+}
+
+
+-------------------------------------------------newton raphson method-----------------------------------------------
+
+
+
+#include<stdio.h>
+#include<math.h>
+float f(float x)
+{
+    return x*exp(x)-1;
+}
+float df (float x)
+{
+    return exp(x)*(x+1);
+}
+void main()
+{
+    int itr, maxmitr;
+    float h, x0, x1, allerr;
+    printf("\nEnter x0, allowed error and maximum iterations\n");
+    scanf("%f %f %d", &x0, &allerr, &maxmitr);
+    for (itr=1; itr<=maxmitr; itr++)
+    {
+        h=f(x0)/df(x0);
+        x1=x0-h;
+        printf(" At Iteration no. %3d, x = %9.6f\n", itr, x1);
+        if (fabs(h) < allerr)
+        {
+            printf("After %3d iterations, root = %8.6f\n", itr, x1);
+            return 0;
+        }
+        x0=x1;
+    }
+    printf(" The required solution does not converge or iterations are insufficient\n");
+    return 1;
+}
+
+
+--------------------------------------secant method----------------------------------------------------
+#include<iostream>
+#include<math.h>
+#include<iomanip>
+
+float f(float x)
+{
+    return cos(x)-x*exp(x);
+}
+
+using namespace std;
+
+int main()
+{
+float x0, x1, x2, f0, f1, f2, e;
+int step = 1, N;
+cout<<"Enter first and second guess: ";
+cin>>x0>>x1;
+cout<<"Enter tolerable error: ";
+cin>>e;
+cout<<"Enter maximum iteration: ";
+cin>>N;
+     cout<< endl;
+do
+{
+ f0 = f(x0);
+ f1 = f(x1);
+ if(f0 == f1)
+ {
+  cout<<"Initaial guesses must be different";
+  exit(0);
+ }
+
+ x2 = x1 - (x1 - x0) * f1/(f1-f0);
+ f2 = f(x2);
+
+ cout<<"Iteration-"<< step<<":\t x2 = "<< setw(10)<< x2<<" and f(x2) = "<< setw(10)<< f(x2)<< endl;
+
+ x0 = x1;
+ f0 = f1;
+ x1 = x2;
+ f1 = f2;
+
+ step = step + 1;
+
+ if(step > N)
+ {
+  cout<<"Not Convergent."<<endl<<"More Iteration required"<<endl;
+  exit(0);
+ }
+}while(fabs(f2)>e);
+
+cout<< endl<<"Root is: "<< x2;
+
+return 0;
+}
+
+-------------------------------------------------------------addition od two matrix-------------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a,b,d,i,j;
+    cout<<"Enter the row and column of matrices"<<endl;
+    cin>>a>>b;
+    int a1[a][b],b1[a][b];
+    cout<<"Enter elments of 1 matrix"<<endl;
+    for(i=0;i<a;i++)
+    {
+        for(j=0;j<b;j++)
+        {
+            cin>>a1[i][j];
+        }
+    }
+    cout<<"Enter elments of 2 matrix"<<endl;
+    for(i=0;i<a;i++)
+    {
+        for(j=0;j<b;j++)
+        {
+            cin>>b1[i][j];
+        }
+    }
+    cout<<"Added Matrix is"<<endl;
+    for(i=0;i<a;i++)
+    {
+        for(j=0;j<b;j++)
+        {
+            cout<<a1[i][j]+b1[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+   
+    return 0;
+}
+
+-------------------------------------------------------transpose of matrix------------------------------------------------------------------------------
+
+#include<iostream>
+using namespace std;
+int  main()
+{
+    int a,i,j;
+    cout<<"Enter the order of matrix"<<endl;
+    cin>>a;
+    int arr[a][a];
+    cout<<"Enter elements of matrix"<<endl;
+    for(i=0;i<a;i++)
+    {
+        for(j=0;j<a;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+    cout<<"Transpose of matrix is"<<endl;
+    for(i=0;i<a;i++)
+    {
+        for(j=0;j<a;j++)
+        {
+            cout<<arr[j][i]<<" ";
+        }
+        cout<<endl;
+    }
+   
+    return 0;
+}
+
+---------------------------------------------------------------------------lagranges interpolation formula----------------------------------------------------------------
+#include<iostream>
+using namespace std;
+int main()
+{
+    float x[100],y[100],a,s=1,t=1,k=0;
+    int n,i,j,d=1;
+    cout<<"Enter the number of the terms of the table: "<<endl;
+    cin>>n;
+    cout<<"Enter the respective values of the variables x and y: "<<endl;
+    for(i=0; i<n; i++)
+    {
+        cin>>x[i]>>y[i];
+    }
+        cout<<"Enter the value of the x to find the respective value of y"<<endl;
+        cin>>a;
+        for(i=0; i<n; i++)
+        {
+            s=1;
+            t=1;
+            for(j=0; j<n; j++)
+            {
+                if(j!=i)
+                {
+                    s=s*(a-x[j]);
+                    t=t*(x[i]-x[j]);
+                }
+ }
+            k=k+((s/t)*y[i]);
+        }
+        cout<<"The respective value of the variable y is:"<<k;
+    return 0;
+}
+
+
+--------------------------------------------------------------------newton differnce formula------------------------------------------------------------------------------
+#include<stdio.h>
+void main()
+{
+    float x[10], y[10], p[10];
+    int k,n,i,j=1;
+    float f,f1=1,f2=0;
+    printf("\nEnter the number of observations:\n");
+    scanf("%d", &n);
+
+    printf("\nEnter the different values of x:\n");
+    for (i=1;i<=n;i++)
+        scanf("%f", &x[i]);
+
+    printf("\nThe corresponding values of y are:\n");
+    for (i=1;i<=n;i++)
+        scanf("%f", &y[i]);
+
+    f=y[1];
+    printf("\nEnter the value of 'k' in f(k) you want to evaluate:\n");
+    scanf("%d", &k);
+
+    do
+    {
+        for (i=1;i<=n-1;i++)
+        {
+            p[i] = ((y[i+1]-y[i])/(x[i+j]-x[i]));
+            y[i]=p[i];
+        }
+        f1=1;
+        for(i=1;i<=j;i++)
+            {
+                f1*=(k-x[i]);
+            }
+        f2+=(y[1]*f1);
+        n--;
+        j++;
+    } while(n!=1);
+    f+=f2;
+    printf("\nf(%d) = %f", k , f);
+    return 0;
+}
+
+---------------------------------------------------------------------trapezoidal rule-------------------------------------------------------------------------------------
+#include<stdio.h>
+#include<math.h>
+
+/* Define function here */
+#define f(x) 1/(1+pow(x,2))
+
+int main()
+{
+ float lower, upper, integration=0.0, stepSize, k;
+ int i, subInterval;
+ //clrscr();
+ /* Input */
+ printf("Enter lower limit of integration: ");
+ scanf("%f", &lower);
+ printf("Enter upper limit of integration: ");
+ scanf("%f", &upper);
+ printf("Enter number of sub intervals: ");
+ scanf("%d", &subInterval);
+
+ /* Calculation */
+ /* Finding step size */
+ stepSize = (upper - lower)/subInterval;
+
+ /* Finding Integration Value */
+ integration = f(lower) + f(upper);
+ for(i=1; i<= subInterval-1; i++)
+ {
+  k = lower + i*stepSize;
+  integration = integration + 2 * f(k);
+ }
+ integration = integration * stepSize/2;
+ printf("\nRequired value of integration is: %.3f", integration);
+ //getch();
+ return 0;
+}
+----------------------------------------------------------------------simpson 1/3 rule---------------------------------------------------------------------------------
+
+#include<stdio.h>
+#include<math.h>
+
+/* Define function here */
+#define f(x) 1/(1+pow(x,2))
+
+int main()
+{
+ float lower, upper, integration=0.0, h, k;
+ int i, subInterval;
+ /* Input */
+ printf("Enter lower limit of integration: ");
+ scanf("%f", &lower);
+ printf("Enter upper limit of integration: ");
+ scanf("%f", &upper);
+ printf("Enter number of sub intervals: ");
+ scanf("%d", &subInterval);
+
+ /* Calculation */
+ /* Finding h */
+ h = (upper - lower)/subInterval;
+
+ /* Finding Integration Value */
+ integration = f(lower) + f(upper);
+ for(i=1; i<= subInterval-1; i++)
+ {
+     if(i%2!=0)
+     {
+         k = lower + i*h;
+         integration = integration + 4 * f(k);
+     }
+     if(i%2==0)
+     {
+        k = lower + i*h;
+        integration = integration + 2 * f(k);
+     }
+ }
+ integration = integration * h/3;
+ printf("\nRequired value of integration is: %.3f", integration);
+ //getch();
+ return 0;
+}
+
+---------------------------------------------------------simpson 3/8 rule------------------------------------------------------------------------------------------------
+
+#include<stdio.h>
+#include<math.h>
+
+/* Define function here */
+#define f(x) 1/(1+pow(x,2))
+
+int main()
+{
+ float lower, upper, integration=0.0, h, k;
+ int i, subInterval;
+ /* Input */
+ printf("Enter lower limit of integration: ");
+ scanf("%f", &lower);
+ printf("Enter upper limit of integration: ");
+ scanf("%f", &upper);
+ printf("Enter number of sub intervals: ");
+ scanf("%d", &subInterval);
+
+ /* Calculation */
+ /* Finding h */
+ h = (upper - lower)/subInterval;
+
+ /* Finding Integration Value */
+ integration = f(lower) + f(upper);
+ for(i=1; i<= subInterval-1; i++)
+ {
+	k = lower + i*h;
+     if(i%3==0)
+     {
+         
+         integration = integration + 2 * f(k);
+     }
+     else
+     {
+  
+        integration = integration + 3 * f(k);
+     }
+ }
+ integration = integration * 3h/8;
+ printf("\nRequired value of integration is: %.3f", integration);
+ //getch();
+ return 0;
+}
+
+--------------------------------------------------------------------guass jordan theorem----------------------------------------------------------------------------------
+#include<iostream>
+#include<iomanip>
+#include<math.h>
+#include<stdlib.h>
+
+#define SIZE 10
+
+using namespace std;
+
+int main()
+{
+		 float a[SIZE][SIZE], x[SIZE], ratio;
+		 int i,j,k,n;
+
+         /* Setting precision and writing floating point values in fixed-point notation. */
+         cout<< setprecision(3)<< fixed;
+
+		 /* Inputs */
+		 /* 1. Reading order of matrix */
+		 cout<<"Enter order of matrix: ";
+		 cin>>n;
+
+		 /* 2. Reading Matrix */
+		 cout<<"Enter coefficients of Matrix: " << endl;
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=1;j<=n;j++)
+			  {
+				   cout<<"a["<< i<<"]"<< j<<"]= ";
+                   cin>>a[i][j];
+			  }
+		 }
+
+		 /* Augmenting Identity Matrix of Order n */
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=1;j<=n;j++)
+			  {
+				   if(i==j)
+				   {
+				    	a[i][j+n] = 1;
+				   }
+				   else
+				   {
+				    	a[i][j+n] = 0;
+				   }
+			  }
+		 }
+
+		 /* Applying Gauss Jordan Elimination */
+		 for(i=1;i<=n;i++)
+		 {
+			  if(a[i][i] == 0.0)
+			  {
+				   cout<<"Mathematical Error!";
+				   exit(0);
+			  }
+			  for(j=1;j<=n;j++)
+			  {
+				   if(i!=j)
+				   {
+					    ratio = a[j][i]/a[i][i];
+					    for(k=1;k<=2*n;k++)
+					    {
+					     	a[j][k] = a[j][k] - ratio*a[i][k];
+					    }
+				   }
+			  }
+		 }
+		 /* Row Operation to Make Principal Diagonal to 1 */
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=n+1;j<=2*n;j++)
+			  {
+			   	a[i][j] = a[i][j]/a[i][i];
+			  }
+		 }
+		 /* Displaying Inverse Matrix */
+		 cout<< endl<<"Inverse Matrix is:"<< endl;
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=n+1;j<=2*n;j++)
+			  {
+			   	cout<< a[i][j]<<"\t";
+			  }
+			  cout<< endl;
+		 }
+		 return(0);
+}
+------------------------------------------------------power method-----------------------------------------------------
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+
+    int i,j,n;
+    float A[40][40],x[40],z[40],e[40],zmax,emax;
+    printf("\nEnter the order of matrix:");
+    scanf("%d",&n);
+    printf("\nEnter matrix elements row-wise\n");
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=n; j++)
+        {
+            printf("A[%d][%d]=", i,j);
+            scanf("%f",&A[i][j]);
+        }
+    }
+    printf("\nEnter the column vector\n");
+    for(i=1; i<=n; i++)
+    {
+        printf("X[%d]=",i);
+        scanf("%f",&x[i]);
+    }
+    do
+    {
+        for(i=1; i<=n; i++)
+        {
+            z[i]=0;
+            for(j=1; j<=n; j++)
+            {
+                z[i]=z[i]+A[i][j]*x[j];
+            }
+        }
+        zmax=fabs(z[1]);
+        for(i=2; i<=n; i++)
+        {
+            if((fabs(z[i]))>zmax)
+                zmax=fabs(z[i]);
+        }
+        for(i=1; i<=n; i++)
+        {
+            z[i]=z[i]/zmax;
+        }
+        for(i=1; i<=n; i++)
+        {
+            e[i]=0;
+            e[i]=fabs((fabs(z[i]))-(fabs(x[i])));
+        }
+        emax=e[1];
+        for(i=2; i<=n; i++)
+        {
+            if(e[i]>emax)
+                emax=e[i];
+        }
+        for(i=1; i<=n; i++)
+        {
+            x[i]=z[i];
+        }
+    }
+    while(emax>0.001);
+    printf("\n The required eigen value is %f",zmax);
+    printf("\n\nThe required eigen vector is :\n");
+    for(i=1; i<=n; i++)
+    {
+        printf("%f\t",z[i]);
+    }
+    return 0;
+}
+----------------------------------------------------------runge kutta method------------------------------
+#include<iostream>
+#define f(x,y) (y*y-x*x)/(y*y+x*x)
+using namespace std;
+int main()
+{
+ float x0, y0, xn, h, yn, k1, k2, k3, k4, k;
+ int i, n;
+ cout<<"Enter Initial Condition"<< endl<<"x0 = ";
+ cin>> x0;
+ cout<<"y0 = ";
+ cin >> y0;
+ cout<<"Enter calculation point xn and number of steps"<<endl;
+ cin>>xn>>n;
+ 
+ h = (xn-x0)/n;
+ cout<<"\nx0\ty0\tyn\n";
+ for(i=0; i < n; i++)
+ {
+  k1 = h * (f(x0, y0));
+  k2 = h * (f((x0+h/2), (y0+k1/2)));
+  k3 = h * (f((x0+h/2), (y0+k2/2)));
+  k4 = h * (f((x0+h), (y0+k3)));
+  k = (k1+2*k2+2*k3+k4)/6;
+  yn = y0 + k;
+  cout<< x0<<"\t"<< y0<<"\t"<< yn<< endl;
+  x0 = x0+h;
+  y0 = yn;
+ }
+ cout<<"\nValue of y at x = "<< xn<< " is " << yn;
+ return 0;
+}
